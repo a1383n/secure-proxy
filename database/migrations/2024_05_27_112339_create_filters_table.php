@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['allow', 'block']);
+            $table->boolean('enabled')->default(true);
             $table->timestamps();
         });
     }

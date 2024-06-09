@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('upstreams', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('enabled')->default(true);
+            $table->ipAddress('address');
             $table->timestamps();
         });
     }

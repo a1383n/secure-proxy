@@ -13,13 +13,9 @@ return new class extends Migration
     {
         Schema::create('filter_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('filter_list_id');
+            $table->foreignId('filter_id')->constrained('filters');
             $table->string('pattern');
             $table->enum('filter_type', ['regex', 'exact', 'wildcard']);
-            $table->foreign('filter_list_id')
-                ->references('id')
-                ->on('filter_lists')
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }
