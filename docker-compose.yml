@@ -1,0 +1,21 @@
+volumes:
+    public_volume:
+
+services:
+    app:
+        image: secure-proxy:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - "public_volume:/var/www/html/public"
+        env_file:
+            - .env
+
+    webserver:
+        image: nginx:latest
+        volumes:
+            - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro"
+            - "public_volume:/var/www/html/public"
+        ports:
+            - "80:80"
