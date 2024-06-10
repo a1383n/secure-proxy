@@ -9,9 +9,13 @@ RUN apk update && apk add --no-cache \
     sqlite-dev \
     libzip-dev \
     zip unzip \
-    icu-dev
+    icu-dev \
+    autoconf \
+    gcc \
+    g++ \
+    make
 
-RUN docker-php-ext-install -j$(nproc) pdo_mysql pdo_sqlite zip intl
+RUN docker-php-ext-install -j$(nproc) pdo_mysql pdo_sqlite zip intl pcntl && pecl install redis && docker-php-ext-enable redis
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -30,10 +34,13 @@ RUN composer install \
 
 COPY . .
 
-RUN chmod -R 755 ./storage
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 RUN set -xe \
-    && composer install || true \
+    && composer dump-autoload || true \
     && php artisan optimize:clear --ansi || true
 
+COPY ./docker/docker-entrypoint.sh /entrypoint.sh
+
 EXPOSE 9000
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
