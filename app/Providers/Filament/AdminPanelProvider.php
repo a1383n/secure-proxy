@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsByStatus;
+use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsOverTimeChart;
+use App\Filament\Resources\ResolveLogResource\Widgets\FilterStatusDistributionChart;
+use App\Filament\Resources\ResolveLogResource\Widgets\StatsOverview;
+use App\Filament\Resources\ResolveLogResource\Widgets\TopDomainsByRequestsChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -27,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName("Secure Proxy")
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -35,10 +41,14 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+            ->databaseNotifications()
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                StatsOverview::class,
+                DnsRequestsOverTimeChart::class,
+                TopDomainsByRequestsChart::class,
+                DnsRequestsByStatus::class,
+                FilterStatusDistributionChart::class
             ])
             ->middleware([
                 EncryptCookies::class,

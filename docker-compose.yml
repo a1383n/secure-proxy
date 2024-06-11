@@ -78,10 +78,10 @@ services:
 
     dns:
         image: ghcr.io/a1383n/dns_reverse_proxy:master
+        tty: true
         ports:
-            - "53:53"
-        environment:
-            ENDPOINT_URL: http://webserver/api/resolve
+            - "53:53/udp"
+        command: "./build/dns_reverse_proxy --endpoint http://192.168.1.192:8001/api/resolve"
 
     proxy:
         image: ghcr.io/a1383n/secureforward-proxy:master
