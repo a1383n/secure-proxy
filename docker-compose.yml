@@ -6,7 +6,7 @@ volumes:
 
 services:
     app:
-        image: secure-proxy:latest
+        image: ghcr.io/a1383n/secure-proxy:master
         build:
             context: .
             dockerfile: Dockerfile
@@ -29,9 +29,8 @@ services:
             QUEUE_CONNECTION: redis
             CACHE_STORE: redis
 
-
     queue:
-        image: secure-proxy:latest
+        image: ghcr.io/a1383n/secure-proxy:master
         build:
             context: .
             dockerfile: Dockerfile
@@ -42,7 +41,7 @@ services:
             CONTAINER_ROLE: "QUEUE"
 
     scheduler:
-        image: secure-proxy:latest
+        image: ghcr.io/a1383n/secure-proxy:master
         build:
             context: .
             dockerfile: Dockerfile
