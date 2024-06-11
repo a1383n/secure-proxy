@@ -80,8 +80,8 @@ services:
         image: ghcr.io/a1383n/dns_reverse_proxy:master
         ports:
             - "53:53"
-        command:
-            -  "--endpoint http://webserver/api/resolve"
+        environment:
+            ENDPOINT_URL: http://webserver/api/resolve
 
     proxy:
         image: ghcr.io/a1383n/secureforward-proxy:master
