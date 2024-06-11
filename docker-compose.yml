@@ -53,7 +53,7 @@ services:
             CONTAINER_ROLE: "SCHEDULER"
 
     webserver:
-        image: nginx:latest
+        image: nginx:alpine
         volumes:
             - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro"
             - "public_html_volume:/var/www/html/public:ro"
@@ -78,14 +78,16 @@ services:
             TZ: Asia/Tehran
 
     dns:
-        image: dns_reverse_proxy:latest
+        image: ghcr.io/a1383n/dns_reverse_proxy:master
         ports:
             - "53:53"
         command:
-            -  "--endpoint http://app/api/resolve"
+            -  "--endpoint http://webserver/api/resolve"
 
     proxy:
-        image: secureforward-proxy:latest
+        image: ghcr.io/a1383n/secureforward-proxy:master
+        environment:
+            API_ENDPOINT: http://webserver/api
         ports:
             - "80:80"
             - "443:443"
