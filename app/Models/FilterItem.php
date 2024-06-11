@@ -33,11 +33,10 @@ class FilterItem extends Model
     {
         $pattern = $this->getAttribute('pattern');
 
-        return match ($type = $this->getAttribute('filter_type')) {
-            'exact' => $pattern === $domain,
-            'regex' => preg_match($pattern, $domain),
-            'wildcard' => fnmatch($pattern, $domain),
-            default => throw new \Exception("filter type $type not supported")
+        return match ($this->filter_type) {
+            FilterItemPatternType::WILDCARD => fnmatch($pattern, $domain),
+            FilterItemPatternType::REGEX => preg_match($pattern, $domain),
+            FilterItemPatternType::EXACT => $pattern === $domain,
         };
     }
 }
