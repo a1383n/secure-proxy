@@ -74,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
                 ->toArray();
         });
 
-        Location::macro('fetch', fn(?string $ipAddress) => Location::fetchMany($ipAddress)[$ipAddress]);
+        Location::macro('fetch', fn (?string $ipAddress) => Location::fetchMany($ipAddress)[$ipAddress]);
     }
 
     /**

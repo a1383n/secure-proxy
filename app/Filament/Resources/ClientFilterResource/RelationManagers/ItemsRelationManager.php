@@ -3,14 +3,11 @@
 namespace App\Filament\Resources\ClientFilterResource\RelationManagers;
 
 use App\Enums\ClientFilterType;
-use App\Enums\DomianFilterType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ItemsRelationManager extends RelationManager
 {

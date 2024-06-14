@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -10,7 +9,7 @@ class ClientFilter extends Model
 {
     protected $fillable = [
         'name',
-        'enabled'
+        'enabled',
     ];
 
     protected function casts(): array

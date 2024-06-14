@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\FilterItemPatternType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -40,7 +39,7 @@ class DomainFilterItem extends Model
             FilterItemPatternType::WILDCARD => fnmatch($pattern, $value),
             FilterItemPatternType::REGEX    => preg_match($pattern, $value),
             FilterItemPatternType::EXACT    => $pattern === $value,
-            FilterItemPatternType::DOMAIN   => self::isPassedPattern(FilterItemPatternType::EXACT, $pattern, $value) || self::isPassedPattern(FilterItemPatternType::WILDCARD, '*.' . $pattern, $value)
+            FilterItemPatternType::DOMAIN   => self::isPassedPattern(FilterItemPatternType::EXACT, $pattern, $value) || self::isPassedPattern(FilterItemPatternType::WILDCARD, '*.'.$pattern, $value)
         };
     }
 
