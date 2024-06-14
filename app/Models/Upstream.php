@@ -10,15 +10,15 @@ class Upstream extends Model
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'address',
-      'enabled'
+        'name',
+        'address',
+        'enabled',
     ];
 
     protected function casts(): array
     {
         return [
-            'enabled' => 'bool'
+            'enabled' => 'bool',
         ];
     }
 }

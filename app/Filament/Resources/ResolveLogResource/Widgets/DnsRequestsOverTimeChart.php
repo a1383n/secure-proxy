@@ -9,28 +9,27 @@ use Illuminate\Support\Facades\DB;
 class DnsRequestsOverTimeChart extends ChartWidget
 {
     protected static ?string $heading = 'DNS Requests Over Time';
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
     public ?string $filter = 'minute';
 
     protected function getFilters(): ?array
     {
         return [
             'minute' => 'Last minute',
-            'hour' => 'Last hour',
-            'day' => 'Last day',
-            'week' => 'Last week',
-            'month' => 'Last month',
-            'year' => 'This year',
+            'hour'   => 'Last hour',
+            'day'    => 'Last day',
+            'week'   => 'Last week',
+            'month'  => 'Last month',
+            'year'   => 'This year',
         ];
     }
 
     protected function getData(): array
     {
-
         $data = ResolveLog::query()
             ->select([
                 'resolve_status',
-                DB::raw('count(*) as total')
+                DB::raw('count(*) as total'),
             ])
             ->groupBy(['resolve_status', 'timestamp'])
             ->oldest('timestamp');
@@ -68,12 +67,12 @@ class DnsRequestsOverTimeChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Success Requests',
-                    'data' => $data->where('resolve_status', 'resolved')->pluck('total'),
+                    'data'  => $data->where('resolve_status', 'resolved')->pluck('total'),
                 ],
                 [
                     'label' => 'Failed Requests',
-                    'data' =>  $data->where('resolve_status', 'failed')->pluck('total'),
-                ]
+                    'data'  => $data->where('resolve_status', 'failed')->pluck('total'),
+                ],
             ],
             'labels' => $data->pluck('timestamp'),
         ];

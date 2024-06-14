@@ -10,14 +10,14 @@ class TopClientsRequestsChart extends ChartWidget
 {
     protected static ?string $heading = 'Top Clients Requests';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public ?string $filter = '10';
 
     protected function getFilters(): ?array
     {
         return [
-            '5' => 'Top 5',
+            '5'  => 'Top 5',
             '10' => 'Top 10',
             '20' => 'Top 20',
             '30' => 'Top 30',
@@ -31,7 +31,7 @@ class TopClientsRequestsChart extends ChartWidget
         $todayData = ResolveLog::query()
             ->select([
                 'client_ip',
-                DB::raw('count(*) as total')
+                DB::raw('count(*) as total'),
             ])
             ->groupBy('client_ip')
             ->orderByDesc('total')
@@ -42,7 +42,7 @@ class TopClientsRequestsChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Top Clients',
-                    'data' => $todayData->pluck('total'),
+                    'data'  => $todayData->pluck('total'),
                 ],
             ],
             'labels' => $todayData->pluck('client_ip'),

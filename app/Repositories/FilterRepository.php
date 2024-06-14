@@ -22,7 +22,7 @@ class FilterRepository
     /**
      * @return Collection<FilterItem>
      */
-    public function getAllowedDomainsPatterns() : Collection
+    public function getAllowedDomainsPatterns(): Collection
     {
         return cache()->rememberForever('allowed_domains_patterns', function () {
             return $this->getPatternsQuery()

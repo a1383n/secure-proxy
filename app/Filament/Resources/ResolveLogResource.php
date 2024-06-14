@@ -7,15 +7,10 @@ use App\Filament\Resources\ResolveLogResource\Pages;
 use App\Models\ResolveLog;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 
@@ -41,7 +36,7 @@ class ResolveLogResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('client_ip')
-                    ->icon(fn(string $state): string => 'flag-country-' . Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
+                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('domain')
                     ->searchable(),
@@ -49,19 +44,19 @@ class ResolveLogResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'bypass' => 'info',
-                        'allow' => 'success',
-                        'block' => 'warning',
-                        default => 'primary'
+                        'allow'  => 'success',
+                        'block'  => 'warning',
+                        default  => 'primary'
                     }),
                 Tables\Columns\TextColumn::make('resolve_status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'resolved' => 'success',
-                        'failed' => 'danger',
-                        default => 'primary'
+                        'failed'   => 'danger',
+                        default    => 'primary'
                     }),
                 Tables\Columns\TextColumn::make('resolved_ip')
-                    ->icon(fn(string $state): string => 'flag-country-' . Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
+                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->since()
@@ -73,14 +68,14 @@ class ResolveLogResource extends Resource
                     ->multiple()
                     ->options([
                         'bypass' => 'Bypassed',
-                        'allow' => 'Accepted',
-                        'block' => 'Blocked',
+                        'allow'  => 'Accepted',
+                        'block'  => 'Blocked',
                     ]),
                 Tables\Filters\SelectFilter::make('resolve_status')
                     ->options([
                         'resolved' => 'Resolved',
-                        'failed' => 'Failed',
-                    ])
+                        'failed'   => 'Failed',
+                    ]),
             ])
             ->actions([
                 //
@@ -100,15 +95,15 @@ class ResolveLogResource extends Resource
                             ->title('Table truncated')
                             ->success()
                             ->send();
-                    })
+                    }),
 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\ExportBulkAction::make()
                         ->exporter(ResolveLogExporter::class),
-                    Tables\Actions\DeleteBulkAction::make()
-                ])
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

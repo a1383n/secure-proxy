@@ -57,7 +57,7 @@ return [
     */
 
     'http' => [
-        'timeout' => 3,
+        'timeout'         => 3,
         'connect_timeout' => 3,
     ],
 
@@ -74,7 +74,7 @@ return [
     */
 
     'testing' => [
-        'ip' => '66.102.0.0',
+        'ip'      => '66.102.0.0',
         'enabled' => env('LOCATION_TESTING', true),
     ],
 
@@ -104,7 +104,7 @@ return [
         'local' => [
             'type' => 'city',
             'path' => database_path('maxmind/GeoLite2-City.mmdb'),
-            'url' => sprintf('https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-City&license_key=%s&suffix=tar.gz', env('MAXMIND_LICENSE_KEY')),
+            'url'  => sprintf('https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-City&license_key=%s&suffix=tar.gz', env('MAXMIND_LICENSE_KEY')),
         ],
     ],
 

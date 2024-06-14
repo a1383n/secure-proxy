@@ -31,12 +31,12 @@ class DnsRequestsByStatus extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Resolve status',
-                    'data' => $data->pluck('count'),
+                    'label'           => 'Resolve status',
+                    'data'            => $data->pluck('count'),
                     'backgroundColor' => $statusColors,
-                    'borderColor' => $statusBorderColors,
-                    'borderWidth' => 1,
-                ]
+                    'borderColor'     => $statusBorderColors,
+                    'borderWidth'     => 1,
+                ],
             ],
             'labels' => $data->pluck('resolve_status'),
         ];

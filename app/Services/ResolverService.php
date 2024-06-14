@@ -10,7 +10,7 @@ class ResolverService
     public function resolve(string $domain): false|string
     {
         try {
-            if ($ip = cache()->get('domain$' . $domain)) {
+            if ($ip = cache()->get('domain$'.$domain)) {
                 return $ip;
             }
 
@@ -32,11 +32,12 @@ class ResolverService
             }
 
             $ip = $ips[0];
-            cache()->put('domain$' . $domain, $ip, $ttl);
+            cache()->put('domain$'.$domain, $ip, $ttl);
 
             return $ip;
         } catch (Net_DNS2_Exception $e) {
             report($e);
+
             return false;
         }
     }

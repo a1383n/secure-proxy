@@ -12,12 +12,12 @@ class TopDomainsByRequestsChart extends ChartWidget
 
     public ?string $filter = '10';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getFilters(): ?array
     {
         return [
-            '5' => 'Top 5',
+            '5'  => 'Top 5',
             '10' => 'Top 10',
             '20' => 'Top 20',
             '30' => 'Top 30',
@@ -31,7 +31,7 @@ class TopDomainsByRequestsChart extends ChartWidget
         $todayData = ResolveLog::query()
             ->select([
                 'domain',
-                DB::raw('count(*) as total')
+                DB::raw('count(*) as total'),
             ])
             ->groupBy('domain')
             ->orderByDesc('total')
@@ -42,7 +42,7 @@ class TopDomainsByRequestsChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Top Domains',
-                    'data' => $todayData->pluck('total'),
+                    'data'  => $todayData->pluck('total'),
                 ],
             ],
             'labels' => $todayData->pluck('domain'),

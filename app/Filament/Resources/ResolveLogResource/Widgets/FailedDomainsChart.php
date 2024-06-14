@@ -10,7 +10,7 @@ class FailedDomainsChart extends ChartWidget
 {
     protected static ?string $heading = 'Failed Domains';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getData(): array
     {
@@ -29,8 +29,8 @@ class FailedDomainsChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Failed Domains',
-                    'data' => $data->pluck('total'),
-                ]
+                    'data'  => $data->pluck('total'),
+                ],
             ],
             'labels' => $data->pluck('domain'),
         ];

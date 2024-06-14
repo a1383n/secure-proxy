@@ -42,8 +42,8 @@ class FilterItem extends Model
 
         return match ($this->pattern_type) {
             FilterItemPatternType::WILDCARD => fnmatch($pattern, $domain),
-            FilterItemPatternType::REGEX => preg_match($pattern, $domain),
-            FilterItemPatternType::EXACT => $pattern === $domain,
+            FilterItemPatternType::REGEX    => preg_match($pattern, $domain),
+            FilterItemPatternType::EXACT    => $pattern === $domain,
         };
     }
 }

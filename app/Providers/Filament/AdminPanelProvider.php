@@ -2,11 +2,11 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\ResolveLogResource\Widgets\ResolvedDomainsLocationChart;
 use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsByStatus;
 use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsOverTimeChart;
 use App\Filament\Resources\ResolveLogResource\Widgets\FailedDomainsChart;
 use App\Filament\Resources\ResolveLogResource\Widgets\FilterStatusDistributionChart;
+use App\Filament\Resources\ResolveLogResource\Widgets\ResolvedDomainsLocationChart;
 use App\Filament\Resources\ResolveLogResource\Widgets\StatsOverview;
 use App\Filament\Resources\ResolveLogResource\Widgets\TopClientsRequestsChart;
 use App\Filament\Resources\ResolveLogResource\Widgets\TopDomainsByRequestsChart;
@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName("Secure Proxy")
+            ->brandName('Secure Proxy')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -53,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 TopClientsRequestsChart::class,
                 DnsRequestsByStatus::class,
                 FilterStatusDistributionChart::class,
-                FailedDomainsChart::class
+                FailedDomainsChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

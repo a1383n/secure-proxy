@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\ResolveLogResource\Widgets;
 
-use App\Filament\Resources\ResolveLogResource;
 use App\Models\ResolveLog;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +11,7 @@ class ResolvedDomainsLocationChart extends ChartWidget
 {
     protected static ?string $heading = 'Resolved Domains Location Chart';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getData(): array
     {
@@ -27,7 +26,7 @@ class ResolvedDomainsLocationChart extends ChartWidget
             ->get();
 
         $ipsToResolve = $data
-            ->filter(fn($value) => $value->count_with_country == 0)
+            ->filter(fn ($value) => $value->count_with_country == 0)
             ->pluck('cname')
             ->toArray();
 
@@ -45,12 +44,12 @@ class ResolvedDomainsLocationChart extends ChartWidget
 
             return [
                 'country_name' => $value->cname,
-                'total' => $value->count_with_country + $value->count_without_country,
+                'total'        => $value->count_with_country + $value->count_without_country,
             ];
         })
             ->groupBy('country_name')
             ->mapWithKeys(function ($value, $key) {
-                return [$key => $value->sum(fn($item) => $item['total'])];
+                return [$key => $value->sum(fn ($item) => $item['total'])];
             })
             ->sortDesc();
 
@@ -58,8 +57,8 @@ class ResolvedDomainsLocationChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Resolved Locations',
-                    'data' => $result->values(),
-                ]
+                    'data'  => $result->values(),
+                ],
             ],
             'labels' => $result->keys(),
         ];
