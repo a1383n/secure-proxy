@@ -63,7 +63,10 @@ jobs:
           composer install --prefer-dist --no-interaction --no-progress
 
       - name: Preparing
-        run: cp phpunit.dist.xml phpunit.xml
+        run: |
+          cp .env.example .env && \
+          php artisan key:generate || true && \
+          php artisan migrate || true
 
       - name: Execute tests
         run: php artisan test --coverage
