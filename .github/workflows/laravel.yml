@@ -1,51 +1,69 @@
-name: Laravel
+name: Tests
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push]
+
+permissions:
+  contents: read
 
 jobs:
-  laravel-tests:
-    runs-on: ${{ matrix.os }}
+  tests:
+    runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        php: [8.2, 8.3]
+        php: [ 8.2, 8.3 ]
+
+    name: PHP ${{ matrix.php }}
+    env:
+      extensions: curl, dom, gd, json, libxml, mbstring, zip, intl, pcntl
+      key: php_${{ matrix.php }}_test_laravel_${{ matrix.laravel }}_cache_v1
 
     steps:
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        tools: composer
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Setup cache environment
+        id: ext_cache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.ext_cache.outputs.dir }}
+          key: ${{ steps.ext_cache.outputs.key }}
+          restore-keys: ${{ steps.ext_cache.outputs.key }}
 
-    - name: Install Dependencies
-      run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: xdebug2
 
-    - name: Generate key
-      run: php artisan key:generate
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-    - name: Directory Permissions
-      if: runner.os == 'Linux'
-      run: chmod -R 777 storage bootstrap/cache
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ env.key }}-${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ env.key }}-${{ runner.os }}-composer-
 
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-        php artisan migrate --no-interaction
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-progress
 
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      - name: Preparing
+        run: cp phpunit.dist.xml phpunit.xml
+
+      - name: Execute tests
+        run: php artisan test --coverage
