@@ -1,7 +1,0 @@
-php:
-  preset: laravel
-  finder:
-    not-name:
-      - index.php
-js: true
-css: true
