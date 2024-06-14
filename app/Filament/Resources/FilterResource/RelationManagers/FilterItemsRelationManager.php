@@ -8,8 +8,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FilterItemsRelationManager extends RelationManager
 {
@@ -23,7 +21,7 @@ class FilterItemsRelationManager extends RelationManager
                     ->required()
                     ->options(FilterItemPatternType::class),
                 Forms\Components\TextInput::make('pattern')
-                    ->required()
+                    ->required(),
             ]);
     }
 

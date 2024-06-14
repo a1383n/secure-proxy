@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ResolveLog extends Model
@@ -14,6 +13,6 @@ class ResolveLog extends Model
         'domain',
         'resolve_status',
         'resolved_ip',
-        'filter_status'
+        'filter_status',
     ];
 }

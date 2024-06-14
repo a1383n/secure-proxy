@@ -20,8 +20,8 @@ class Filter extends Model
     protected function casts(): array
     {
         return [
-            'type' => FilterMode::class,
-            'enabled' => 'bool'
+            'type'    => FilterMode::class,
+            'enabled' => 'bool',
         ];
     }
 

@@ -28,13 +28,13 @@ class ProxyService
     public function isDomainMatchFilterMode(FilterMode $filterMode, string $domain): bool
     {
         $method = match ($filterMode) {
-            FilterMode::ALLOW => 'getAllowedDomainsPatterns',
-            FilterMode::BLOCK => 'getBlockedDomainsPatterns',
+            FilterMode::ALLOW  => 'getAllowedDomainsPatterns',
+            FilterMode::BLOCK  => 'getBlockedDomainsPatterns',
             FilterMode::BYPASS => 'getBypassedDomainsPatterns',
         };
 
         $result = $this->filterRepository->{$method}()
-            ->first(fn(FilterItem $item) => $item->pass($domain));
+            ->first(fn (FilterItem $item) => $item->pass($domain));
 
         return $result !== null;
     }

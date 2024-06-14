@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
 
             $ipAddresses = collect(Arr::wrap($ipAddresses));
             $positions = collect();
-            $privateIps = $ipAddresses->filter(fn($ip) => IpUtils::isPrivateIp($ip));
+            $privateIps = $ipAddresses->filter(fn ($ip) => IpUtils::isPrivateIp($ip));
             $publicIps = $ipAddresses->diff($privateIps);
 
             $privateIps->each(function ($ip) use (&$positions) {
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
             $publicIps->chunk(50)
                 ->each(function ($publicIps) use (&$positions) {
-                    $cacheKeys = $publicIps->mapWithKeys(fn($ip) => [$ip => 'ip_address_geo:' . $ip]);
+                    $cacheKeys = $publicIps->mapWithKeys(fn ($ip) => [$ip => 'ip_address_geo:'.$ip]);
 
                     $cachedResults = collect(cache()->many($cacheKeys->values()->all()));
 
@@ -52,8 +52,8 @@ class AppServiceProvider extends ServiceProvider
 
                     $ipsToFetch->each(function ($ip) use (&$results, &$positions) {
                         if (($result = $this->get($ip)) !== false) {
-                            $results['ip_address_geo:' . $ip] = $positions[$ip] = collect($result->toArray())
-                                ->mapWithKeys(fn($value, $key) => [Str::snake($key) => $value])
+                            $results['ip_address_geo:'.$ip] = $positions[$ip] = collect($result->toArray())
+                                ->mapWithKeys(fn ($value, $key) => [Str::snake($key) => $value])
                                 ->toArray();
                         }
                     });
@@ -68,7 +68,7 @@ class AppServiceProvider extends ServiceProvider
 
             return $positions
                 ->map(function ($position) {
-                    return collect($position)->mapWithKeys(fn($item, $key) => [Str::snake($key) => $item]);
+                    return collect($position)->mapWithKeys(fn ($item, $key) => [Str::snake($key) => $item]);
                 })
                 ->toArray();
         });

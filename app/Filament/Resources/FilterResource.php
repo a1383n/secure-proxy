@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Enums\FilterMode;
 use App\Filament\Resources\FilterResource\Pages;
-use App\Filament\Resources\FilterResource\RelationManagers;
 use App\Models\Filter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FilterResource extends Resource
 {
@@ -69,16 +66,16 @@ class FilterResource extends Resource
     public static function getRelations(): array
     {
         return [
-            \App\Filament\Resources\FilterResource\RelationManagers\FilterItemsRelationManager::class
+            \App\Filament\Resources\FilterResource\RelationManagers\FilterItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFilters::route('/'),
+            'index'  => Pages\ListFilters::route('/'),
             'create' => Pages\CreateFilter::route('/create'),
-            'edit' => Pages\EditFilter::route('/{record}/edit'),
+            'edit'   => Pages\EditFilter::route('/{record}/edit'),
         ];
     }
 }
