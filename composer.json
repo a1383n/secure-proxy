@@ -9,9 +9,12 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/horizon": "^5.24",
+        "laravel/octane": "^2.4",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
-        "pear/net_dns2": "^1.5"
+        "outhebox/blade-flags": "^1.5",
+        "pear/net_dns2": "^1.5",
+        "stevebauman/location": "^7.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

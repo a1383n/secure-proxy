@@ -20,19 +20,30 @@ class DnsRequestsByStatus extends ChartWidget
             ->groupBy('resolve_status')
             ->get();
 
+        $statusColors = $data->pluck('resolve_status')->map(function ($status) {
+            return $status === 'failed' ? 'rgba(255, 99, 132, 0.6)' : 'rgba(75, 192, 192, 0.6)'; // red for failed, teal for others
+        });
+
+        $statusBorderColors = $data->pluck('resolve_status')->map(function ($status) {
+            return $status === 'failed' ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)'; // red for failed, teal for others
+        });
+
         return [
             'datasets' => [
                 [
-                    'label' => 'DNS Requests',
+                    'label' => 'Resolve status',
                     'data' => $data->pluck('count'),
+                    'backgroundColor' => $statusColors,
+                    'borderColor' => $statusBorderColors,
+                    'borderWidth' => 1,
                 ]
             ],
-            'labels' => $data->pluck('resolve_status')
+            'labels' => $data->pluck('resolve_status'),
         ];
     }
 
     protected function getType(): string
     {
-        return 'pie';
+        return 'doughnut';
     }
 }

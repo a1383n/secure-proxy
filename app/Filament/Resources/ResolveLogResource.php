@@ -4,21 +4,20 @@ namespace App\Filament\Resources;
 
 use App\Filament\Exports\ResolveLogExporter;
 use App\Filament\Resources\ResolveLogResource\Pages;
-use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsByClientIpChart;
-use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsByStatus;
-use App\Filament\Resources\ResolveLogResource\Widgets\DnsRequestsOverTimeChart;
-use App\Filament\Resources\ResolveLogResource\Widgets\FilterStatusDistributionChart;
-use App\Filament\Resources\ResolveLogResource\Widgets\TopDomainsByRequestsChart;
 use App\Models\ResolveLog;
-use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Stevebauman\Location\Facades\Location;
 
 class ResolveLogResource extends Resource
 {
@@ -39,31 +38,70 @@ class ResolveLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('client_ip')
+                    ->icon(fn(string $state): string => 'flag-country-' . Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('domain')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('filter_status')
-                    ->searchable(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'bypass' => 'info',
+                        'allow' => 'success',
+                        'block' => 'warning',
+                        default => 'primary'
+                    }),
                 Tables\Columns\TextColumn::make('resolve_status')
-                    ->searchable(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'resolved' => 'success',
+                        'failed' => 'danger',
+                        default => 'primary'
+                    }),
                 Tables\Columns\TextColumn::make('resolved_ip')
+                    ->icon(fn(string $state): string => 'flag-country-' . Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->since()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('filter_status')
+                    ->multiple()
+                    ->options([
+                        'bypass' => 'Bypassed',
+                        'allow' => 'Accepted',
+                        'block' => 'Blocked',
+                    ]),
+                Tables\Filters\SelectFilter::make('resolve_status')
+                    ->options([
+                        'resolved' => 'Resolved',
+                        'failed' => 'Failed',
+                    ])
             ])
             ->actions([
                 //
             ])
             ->headerActions([
                 ExportAction::make()
-                    ->exporter(ResolveLogExporter::class)
+                    ->exporter(ResolveLogExporter::class),
+                Tables\Actions\Action::make('truncate')
+                    ->label('Truncate')
+                    ->icon('heroicon-o-trash')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->action(function () {
+                        ResolveLog::truncate();
+
+                        Notification::make()
+                            ->title('Table truncated')
+                            ->success()
+                            ->send();
+                    })
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -85,17 +123,6 @@ class ResolveLogResource extends Resource
     {
         return [
             'index' => Pages\ListResolveLogs::route('/'),
-        ];
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            ResolveLogResource\Widgets\StatsOverview::class,
-            DnsRequestsOverTimeChart::class,
-            TopDomainsByRequestsChart::class,
-            DnsRequestsByStatus::class,
-            FilterStatusDistributionChart::class
         ];
     }
 }

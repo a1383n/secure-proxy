@@ -48,7 +48,7 @@ class ProxyController extends Controller
                     return response(['ok' => false, 'message' => 'No such host'], 404);
                 }
             default:
-                ResolveLog::create(['domain' => $domain, 'resolved_ip' => null, 'resolve_status' => 'failed', 'filter_status' => 'default', 'client_ip' => $ip]);
+//                ResolveLog::create(['domain' => $domain, 'resolved_ip' => null, 'resolve_status' => 'failed', 'filter_status' => 'bypass', 'client_ip' => $ip]);
                 return response(['ok' => false, 'message' => 'No matching'], 404);
         }
     }

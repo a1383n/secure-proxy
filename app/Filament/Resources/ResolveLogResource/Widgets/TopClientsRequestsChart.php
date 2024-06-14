@@ -6,13 +6,13 @@ use App\Models\ResolveLog;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
 
-class TopDomainsByRequestsChart extends ChartWidget
+class TopClientsRequestsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Top Domains by Requests';
-
-    public ?string $filter = '10';
+    protected static ?string $heading = 'Top Clients Requests';
 
     protected int | string | array $columnSpan = 'full';
+
+    public ?string $filter = '10';
 
     protected function getFilters(): ?array
     {
@@ -30,10 +30,10 @@ class TopDomainsByRequestsChart extends ChartWidget
     {
         $todayData = ResolveLog::query()
             ->select([
-                'domain',
+                'client_ip',
                 DB::raw('count(*) as total')
             ])
-            ->groupBy('domain')
+            ->groupBy('client_ip')
             ->orderByDesc('total')
             ->take($this->filter)
             ->get();
@@ -41,11 +41,11 @@ class TopDomainsByRequestsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Top Domains',
+                    'label' => 'Top Clients',
                     'data' => $todayData->pluck('total'),
                 ],
             ],
-            'labels' => $todayData->pluck('domain'),
+            'labels' => $todayData->pluck('client_ip'),
         ];
     }
 
