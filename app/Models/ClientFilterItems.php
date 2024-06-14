@@ -12,13 +12,13 @@ class ClientFilterItems extends Model
         'filter_id',
         'name',
         'ip_address',
-        'type'
+        'type',
     ];
 
     protected function casts(): array
     {
         return [
-            'type' => ClientFilterType::class
+            'type' => ClientFilterType::class,
         ];
     }
 

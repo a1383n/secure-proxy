@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientFilterResource\Pages;
-use App\Filament\Resources\ClientFilterResource\RelationManagers;
 use App\Filament\Resources\ClientFilterResource\RelationManagers\ItemsRelationManager;
 use App\Models\ClientFilter;
 use Filament\Forms;
@@ -11,9 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\App;
 
 class ClientFilterResource extends Resource
 {
@@ -67,16 +63,16 @@ class ClientFilterResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ItemsRelationManager::class
+            ItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClientFilters::route('/'),
+            'index'  => Pages\ListClientFilters::route('/'),
             'create' => Pages\CreateClientFilter::route('/create'),
-            'edit' => Pages\EditClientFilter::route('/{record}/edit'),
+            'edit'   => Pages\EditClientFilter::route('/{record}/edit'),
         ];
     }
 }
