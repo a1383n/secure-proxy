@@ -14,13 +14,20 @@ class FilterItem extends Model
     protected $fillable = [
         'filter_id',
         'pattern',
-        'filter_type',
+        'pattern_type',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($filterItem) {
+            cache()->deleteMultiple(['allowed_domains_patterns', 'bypassed_domains_patterns', 'blocked_domains_patterns']);
+        });
+    }
 
     protected function casts(): array
     {
         return [
-            'filter_type' => FilterItemPatternType::class,
+            'pattern_type' => FilterItemPatternType::class,
         ];
     }
 
@@ -29,11 +36,11 @@ class FilterItem extends Model
         return $this->belongsTo(Filter::class, 'filter_id', 'id');
     }
 
-    public function isAllowed(string $domain): bool
+    public function pass(string $domain): bool
     {
         $pattern = $this->getAttribute('pattern');
 
-        return match ($this->filter_type) {
+        return match ($this->pattern_type) {
             FilterItemPatternType::WILDCARD => fnmatch($pattern, $domain),
             FilterItemPatternType::REGEX => preg_match($pattern, $domain),
             FilterItemPatternType::EXACT => $pattern === $domain,

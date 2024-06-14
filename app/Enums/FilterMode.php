@@ -6,4 +6,5 @@ enum FilterMode: string
 {
     case ALLOW = 'allow';
     case BLOCK = 'block';
+    case BYPASS = 'bypass';
 }

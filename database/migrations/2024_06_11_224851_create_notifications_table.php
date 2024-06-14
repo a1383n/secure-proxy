@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filters', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->enum('type', ['allow', 'bypass', 'block'])->index();
-            $table->boolean('enabled')->default(true)->index();
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
-
-            $table->index(['type', 'enabled']);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filters');
+        Schema::dropIfExists('notifications');
     }
 };

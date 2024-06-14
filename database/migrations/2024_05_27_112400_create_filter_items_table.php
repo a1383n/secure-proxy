@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('filter_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filter_id')->constrained('filters');
+            $table->foreignId('filter_id')->index()->constrained('filters');
             $table->string('pattern');
-            $table->enum('filter_type', ['regex', 'exact', 'wildcard']);
+            $table->enum('pattern_type', ['regex', 'exact', 'wildcard', 'domain']);
             $table->timestamps();
         });
     }

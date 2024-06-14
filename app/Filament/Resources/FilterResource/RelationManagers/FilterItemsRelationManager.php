@@ -19,7 +19,7 @@ class FilterItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('filter_type')
+                Forms\Components\Select::make('pattern_type')
                     ->required()
                     ->options(FilterItemPatternType::class),
                 Forms\Components\TextInput::make('pattern')
@@ -31,7 +31,7 @@ class FilterItemsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('filter_type'),
+                Tables\Columns\TextColumn::make('pattern_type'),
                 Tables\Columns\TextColumn::make('pattern'),
             ])
             ->filters([
