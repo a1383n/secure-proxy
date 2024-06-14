@@ -19,9 +19,9 @@ class StatsOverview extends BaseWidget
 
         return [
             Stat::make('Successful Requests', $successfulRequests)
-                ->description('Success Rate: '.number_format(($successfulRequests / $totalRequests) * 100, 2).'%'),
+                ->description('Success Rate: ' . number_format(($successfulRequests / ($totalRequests == 0 ? $successfulRequests + 1 : $totalRequests)) * 100, 2).'%'),
             Stat::make('Failure Requests', $failureRequests)
-                ->description('Failure Rate: '.number_format(($failureRequests / $totalRequests) * 100, 2).'%'),
+                ->description('Failure Rate: ' . number_format(($failureRequests / ($totalRequests == 0 ? $failureRequests + 1 : $totalRequests)) * 100, 2).'%'),
             Stat::make('Unique Resolved IPs', $uniqueResolvedIPs)
                 ->description('Number of unique resolved IP addresses that fetch for DNS answers'),
             Stat::make('Unique Client IPs', $uniqueClientIPs)

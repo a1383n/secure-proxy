@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Enums\FilterMode;
-use App\Models\FilterItem;
+use App\Enums\DomianFilterType;
+use App\Models\DomainFilterItem;
 use App\Models\Upstream;
 use App\Repositories\FilterRepository;
 
@@ -14,9 +14,9 @@ class ProxyService
         //
     }
 
-    public function getDomainFilterMode(string $domain): FilterMode|null
+    public function getDomainFilterMode(string $domain): DomianFilterType|null
     {
-        foreach ([FilterMode::ALLOW, FilterMode::BLOCK, FilterMode::BYPASS] as $filterMode) {
+        foreach ([DomianFilterType::ALLOW, DomianFilterType::BLOCK, DomianFilterType::BYPASS] as $filterMode) {
             if ($this->isDomainMatchFilterMode($filterMode, $domain)) {
                 return $filterMode;
             }
@@ -25,16 +25,16 @@ class ProxyService
         return null;
     }
 
-    public function isDomainMatchFilterMode(FilterMode $filterMode, string $domain): bool
+    public function isDomainMatchFilterMode(DomianFilterType $filterMode, string $domain): bool
     {
         $method = match ($filterMode) {
-            FilterMode::ALLOW  => 'getAllowedDomainsPatterns',
-            FilterMode::BLOCK  => 'getBlockedDomainsPatterns',
-            FilterMode::BYPASS => 'getBypassedDomainsPatterns',
+            DomianFilterType::ALLOW  => 'getAllowedDomainsPatterns',
+            DomianFilterType::BLOCK  => 'getBlockedDomainsPatterns',
+            DomianFilterType::BYPASS => 'getBypassedDomainsPatterns',
         };
 
         $result = $this->filterRepository->{$method}()
-            ->first(fn (FilterItem $item) => $item->pass($domain));
+            ->first(fn (DomainFilterItem $item) => $item->pass($domain));
 
         return $result !== null;
     }

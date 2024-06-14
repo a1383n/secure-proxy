@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Location::macro('fetchMany', function ($ipAddresses): array {
+        Location::macro('fetchMany', function (string|array|null $ipAddresses): array {
             if (empty($ipAddresses)) {
                 return [];
             }
@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             $privateIps->each(function ($ip) use (&$positions) {
                 $position = new Position();
                 $position->countryName = 'Private Network';
+                $position->countryCode = 'XX';
                 $positions->put($ip, $position->toArray());
             });
 
@@ -72,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
                 })
                 ->toArray();
         });
+
+        Location::macro('fetch', fn(?string $ipAddress) => Location::fetchMany($ipAddress)[$ipAddress]);
     }
 
     /**

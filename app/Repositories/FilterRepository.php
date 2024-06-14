@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\FilterItem;
+use App\Models\DomainFilterItem;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\JoinClause;
@@ -11,34 +11,34 @@ class FilterRepository
 {
     public function getPatternsQuery(): Builder
     {
-        return FilterItem::query()
-            ->join('filters', function (JoinClause $join) {
-                $join->on('filters.id', '=', 'filter_items.filter_id')
-                    ->where('filters.enabled', true);
+        return DomainFilterItem::query()
+            ->join('domain_filters', function (JoinClause $join) {
+                $join->on('domain_filters.id', '=', 'domain_filter_items.filter_id')
+                    ->where('domain_filters.enabled', true);
             })
-            ->select(['filter_items.pattern', 'filter_items.pattern_type', 'filters.type']);
+            ->select(['domain_filter_items.pattern', 'domain_filter_items.pattern_type', 'domain_filters.type']);
     }
 
     /**
-     * @return Collection<FilterItem>
+     * @return Collection<DomainFilterItem>
      */
     public function getAllowedDomainsPatterns(): Collection
     {
         return cache()->rememberForever('allowed_domains_patterns', function () {
             return $this->getPatternsQuery()
-                ->where('filters.type', 'allow')
+                ->where('domain_filters.type', 'allow')
                 ->get();
         });
     }
 
     /**
-     * @return Collection<FilterItem>
+     * @return Collection<DomainFilterItem>
      */
     public function getBypassedDomainsPatterns(): Collection
     {
         return cache()->rememberForever('bypassed_domains_patterns', function () {
             return $this->getPatternsQuery()
-                ->where('filters.type', 'bypass')
+                ->where('domain_filters.type', 'bypass')
                 ->get();
         });
     }
@@ -47,7 +47,7 @@ class FilterRepository
     {
         return cache()->rememberForever('blocked_domains_patterns', function () {
             return $this->getPatternsQuery()
-                ->where('filters.type', 'block')
+                ->where('domain_filters.type', 'block')
                 ->get();
         });
     }

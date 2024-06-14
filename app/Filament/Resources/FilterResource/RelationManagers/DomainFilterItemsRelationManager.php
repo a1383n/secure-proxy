@@ -9,9 +9,9 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class FilterItemsRelationManager extends RelationManager
+class DomainFilterItemsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'filterItems';
+    protected static string $relationship = 'items';
 
     public function form(Form $form): Form
     {

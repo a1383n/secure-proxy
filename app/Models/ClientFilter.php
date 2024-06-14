@@ -2,31 +2,26 @@
 
 namespace App\Models;
 
-use App\Enums\FilterMode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Filter extends Model
+class ClientFilter extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
-        'type',
-        'enabled',
+        'enabled'
     ];
 
     protected function casts(): array
     {
         return [
-            'type'    => FilterMode::class,
-            'enabled' => 'bool',
+            'enabled' => 'boolean',
         ];
     }
 
-    public function filterItems(): HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(FilterItem::class);
+        return $this->hasMany(ClientFilterItems::class, 'filter_id', 'id');
     }
 }
