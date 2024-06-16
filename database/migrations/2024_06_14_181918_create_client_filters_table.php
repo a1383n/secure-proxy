@@ -10,14 +10,11 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('filters', function (Blueprint $table) {
+        Schema::create('client_filters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['allow', 'bypass', 'block'])->index();
-            $table->boolean('enabled')->default(true)->index();
+            $table->boolean('enabled')->default(true);
             $table->timestamps();
-
-            $table->index(['type', 'enabled']);
         });
     }
 
@@ -26,6 +23,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('filters');
+        Schema::dropIfExists('client_filters');
     }
 };

@@ -2,9 +2,8 @@
 
 namespace App\Enums;
 
-enum FilterMode: string
+enum ClientFilterType: string
 {
     case ALLOW = 'allow';
     case BLOCK = 'block';
-    case BYPASS = 'bypass';
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\FilterMode;
+use App\Enums\DomianFilterType;
 use App\Models\ResolveLog;
-use App\Services\ProxyService;
+use App\Services\ClientFilterService;
+use App\Services\DomainFilterService;
 use App\Services\ResolverService;
+use App\Services\UpstreamService;
 use Illuminate\Http\Request;
 
 class ProxyController extends Controller
@@ -25,11 +27,17 @@ class ProxyController extends Controller
         }
 
         $resolver = app(ResolverService::class);
-        $proxy = app(ProxyService::class);
+        $upstreamService = app(UpstreamService::class);
+        $domainFilterService = app(DomainFilterService::class);
+        $clientFilterService = app(ClientFilterService::class);
 
-        switch ($proxy->getDomainFilterMode($domain)) {
-            case FilterMode::ALLOW:
-                if ($upstream = $proxy->getUpstream()) {
+        if (!$clientFilterService->isClientAllowed($ip)) {
+            return response(['ok' => false], 403);
+        }
+
+        switch ($domainFilterService->getDomainFilterMode($domain)) {
+            case DomianFilterType::ALLOW:
+                if ($upstream = $upstreamService->getUpstream()) {
                     ResolveLog::create(['domain' => $domain, 'resolved_ip' => $upstream, 'resolve_status' => 'resolved', 'filter_status' => 'allow', 'client_ip' => $ip]);
 
                     return response(['ok' => true, 'result' => ['status' => 'allowed', 'domain' => $domain, 'address' => $upstream]]);
@@ -38,11 +46,11 @@ class ProxyController extends Controller
 
                     return response(['ok' => false, 'message' => 'No upstream server available'], 503);
                 }
-            case FilterMode::BLOCK:
+            case DomianFilterType::BLOCK:
                 ResolveLog::create(['domain' => $domain, 'resolved_ip' => null, 'resolve_status' => 'failed', 'filter_status' => 'block', 'client_ip' => $ip]);
 
                 return response(['ok' => false, 'message' => 'Blocked']);
-            case FilterMode::BYPASS:
+            case DomianFilterType::BYPASS:
                 if ($address = $resolver->resolve($domain)) {
                     ResolveLog::create(['domain' => $domain, 'resolved_ip' => $address, 'resolve_status' => 'resolved', 'filter_status' => 'bypass', 'client_ip' => $ip]);
 
@@ -66,10 +74,15 @@ class ProxyController extends Controller
         ]);
 
         $domain = $request->input('q');
+        $ip = $request->input('ip');
 
-        $proxy = app(ProxyService::class);
+        $clientFilterService = app(ClientFilterService::class);
+        if (!$clientFilterService->isClientAllowed($ip)) {
+            return response(['ok' => false], 403);
+        }
 
-        if ($proxy->isDomainMatchFilterMode(FilterMode::ALLOW, $domain)) {
+        $domainFilterService = app(DomainFilterService::class);
+        if ($domainFilterService->isDomainMatchFilterMode(DomianFilterType::ALLOW, $domain)) {
             return response(['ok' => true]);
         } else {
             return response(['ok' => false]);

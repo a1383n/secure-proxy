@@ -1,24 +1,20 @@
-FROM php:8.2-fpm-alpine
+FROM dunglas/frankenphp:php8.2-alpine
 
-WORKDIR /var/www/html
+ENV SERVER_NAME=:80
 
-RUN apk update && apk add --no-cache \
-    bash \
-    git \
-    curl \
-    sqlite-dev \
-    libzip-dev \
-    zip unzip \
-    icu-dev \
-    autoconf \
-    gcc \
-    g++ \
-    make
+WORKDIR /app/public
 
-RUN docker-php-ext-install -j$(nproc) pdo_mysql pdo_sqlite zip intl pcntl && pecl install redis && docker-php-ext-enable redis
+RUN install-php-extensions \
+        pcntl \
+    	pdo_mysql \
+    	gd \
+    	intl \
+    	zip \
+    	opcache \
+        redis
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN (curl -f https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer) && composer -V
 COPY composer.* .
 
 RUN composer install \
@@ -34,7 +30,7 @@ RUN composer install \
 
 COPY . .
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data ./storage ./bootstrap/cache
 
 RUN set -xe \
     && composer dump-autoload || true \
@@ -42,5 +38,7 @@ RUN set -xe \
 
 COPY ./docker/docker-entrypoint.sh /entrypoint.sh
 
-EXPOSE 9000
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+ENV FRANKENPHP_CONFIG="worker ./public/index.php"
+
+EXPOSE 2019
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]

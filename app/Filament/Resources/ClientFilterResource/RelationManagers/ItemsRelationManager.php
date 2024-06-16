@@ -1,26 +1,30 @@
 <?php
 
-namespace App\Filament\Resources\FilterResource\RelationManagers;
+namespace App\Filament\Resources\ClientFilterResource\RelationManagers;
 
-use App\Enums\FilterItemPatternType;
+use App\Enums\ClientFilterType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class FilterItemsRelationManager extends RelationManager
+class ItemsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'filterItems';
+    protected static string $relationship = 'items';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('pattern_type')
+                Forms\Components\TextInput::make('name')
                     ->required()
-                    ->options(FilterItemPatternType::class),
-                Forms\Components\TextInput::make('pattern')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('ip_address')
+                    ->required()
+                    ->maxLength(45),
+                Forms\Components\Select::make('type')
+                    ->options(ClientFilterType::class)
                     ->required(),
             ]);
     }
@@ -28,9 +32,14 @@ class FilterItemsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('pattern_type'),
-                Tables\Columns\TextColumn::make('pattern'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ip_address')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->badge(),
             ])
             ->filters([
                 //

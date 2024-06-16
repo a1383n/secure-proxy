@@ -10,9 +10,9 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('filter_items', function (Blueprint $table) {
+        Schema::create('domain_filter_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filter_id')->index()->constrained('filters');
+            $table->foreignId('filter_id')->index()->constrained('domain_filters');
             $table->string('pattern');
             $table->enum('pattern_type', ['regex', 'exact', 'wildcard', 'domain']);
             $table->timestamps();
@@ -24,6 +24,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('filter_items');
+        Schema::dropIfExists('domain_filter_items');
     }
 };

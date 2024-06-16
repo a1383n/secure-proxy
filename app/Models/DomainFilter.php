@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\FilterMode;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\DomianFilterType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Filter extends Model
+class DomainFilter extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
         'type',
@@ -20,13 +17,13 @@ class Filter extends Model
     protected function casts(): array
     {
         return [
-            'type'    => FilterMode::class,
+            'type'    => DomianFilterType::class,
             'enabled' => 'bool',
         ];
     }
 
-    public function filterItems(): HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(FilterItem::class);
+        return $this->hasMany(DomainFilterItem::class, 'filter_id');
     }
 }

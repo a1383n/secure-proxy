@@ -36,7 +36,7 @@ class ResolveLogResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('client_ip')
-                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
+                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)['country_code'] ?? 'XX'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('domain')
                     ->searchable(),
@@ -56,7 +56,7 @@ class ResolveLogResource extends Resource
                         default    => 'primary'
                     }),
                 Tables\Columns\TextColumn::make('resolved_ip')
-                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)?->countryCode ?? 'OL'))
+                    ->icon(fn (string $state): string => 'flag-country-'.Str::lower(Location::fetch($state)['country_code'] ?? 'XX'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->since()
