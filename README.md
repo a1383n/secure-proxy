@@ -49,8 +49,8 @@ This process ensures that only authorized traffic is routed through the proxy, p
 SecureProxy is built on a microservice architecture, where different components work independently yet cohesively:
 
 - **Laravel Application:** Acts as the central API and admin panel.
-- **DNS Server:** Interacts with the Laravel API to resolve domain names.
-- **Proxy Server:** Routes traffic through the SecureProxy API for unrestricted access.
+- [**DNS Server:**](https://github.com/a1383n/dns_reverse_proxy) Interacts with the Laravel API to resolve domain names.
+- [**Proxy Server:**](https://github.com/a1383n/secureforward-proxy) Routes traffic through the SecureProxy API for unrestricted access.
 
 This modular approach allows for scalability, flexibility, and ease of maintenance.
 
