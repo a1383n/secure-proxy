@@ -5,17 +5,18 @@ SecureProxy is an easy-to-use DNS solution designed to help users access restric
 > [!CAUTION]
 > ### The responsibility for using this program lies with the user. In some countries, including Iran, using proxies to bypass internet censorship is illegal. Users must ensure their use of this program complies with all applicable laws.
 
-## Table of Contents
+## Components
 
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Deployment](#deployment)
-- [Creating a Fillament User](#creating-a-fillament-user)
-- [Database Seeding](#database-seeding)
-- [Usage](#usage)
-- [License](#license)
+SecureProxy is built on a microservice architecture, where different components work independently yet cohesively:
+
+- **Laravel Application:** Acts as the central API and admin panel.
+
+### Dependencies
+
+SecureProxy integrates with the following components for enhanced functionality:
+
+- [**DNS Server:**](https://github.com/a1383n/dns_reverse_proxy) Interacts with the Laravel API to resolve domain names.
+- [**Proxy Server:**](https://github.com/a1383n/secureforward-proxy) Routes traffic through the SecureProxy API for unrestricted access.
 
 ## Features
 
@@ -46,16 +47,6 @@ SecureProxy operates as a central API within a microservice framework. It intera
         - **If the request does not pass verification:** The proxy server denies the request.
 
 This process ensures that only authorized traffic is routed through the proxy, providing a secure and controlled browsing experience.
-
-## Architecture
-
-SecureProxy is built on a microservice architecture, where different components work independently yet cohesively:
-
-- **Laravel Application:** Acts as the central API and admin panel.
-- [**DNS Server:**](https://github.com/a1383n/dns_reverse_proxy) Interacts with the Laravel API to resolve domain names.
-- [**Proxy Server:**](https://github.com/a1383n/secureforward-proxy) Routes traffic through the SecureProxy API for unrestricted access.
-
-This modular approach allows for scalability, flexibility, and ease of maintenance.
 
 ## Prerequisites
 
