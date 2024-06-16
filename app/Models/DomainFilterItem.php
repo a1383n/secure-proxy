@@ -14,11 +14,15 @@ class DomainFilterItem extends Model
         'pattern_type',
     ];
 
-    protected static function booted()
+    protected static function booted(): void
     {
-        static::created(function ($filterItem) {
-            cache()->deleteMultiple(['allowed_domains_patterns', 'bypassed_domains_patterns', 'blocked_domains_patterns']);
-        });
+        $purgeCacheClosure = function () {
+            cache()->tags(['App\Repositories\DomainFilterRepository'])->flush();
+        };
+
+        static::created($purgeCacheClosure);
+        static::updated($purgeCacheClosure);
+        static::deleted($purgeCacheClosure);
     }
 
     protected function casts(): array

@@ -2,8 +2,6 @@
 
 namespace App\Repositories\Traits;
 
-use App\Repositories\Attributes\Cache;
-
 trait HasReflection
 {
     protected ?\ReflectionClass $reflection;
@@ -22,11 +20,7 @@ trait HasReflection
     {
         if (($attributes = $this->reflection->getMethod($name)->getAttributes())) {
             foreach ($attributes as $attribute) {
-                $result = $attribute
-                    ->newInstance()
-                    ->__invoke(static::class, $name, $arguments, fn() => $this->{$name}(...$arguments));
-
-                if ($result !== null) {
+                if ($result = $attribute->newInstance()(static::class, $name, $arguments, fn() => $this->{$name}(...$arguments))) {
                     return $result;
                 }
             }

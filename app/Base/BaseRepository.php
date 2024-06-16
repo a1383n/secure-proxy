@@ -13,7 +13,7 @@ abstract class BaseRepository
         $app->{static::$bindMethod}(static::class, static::getInstance());
     }
 
-    public static function getInstance(): callable|string|static
+    protected static function getInstance(): callable|string|static
     {
         return static::class;
     }

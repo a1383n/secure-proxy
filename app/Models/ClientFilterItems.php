@@ -22,6 +22,17 @@ class ClientFilterItems extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        $purgeCacheClosure = function () {
+            cache()->tags(['App\Repositories\ClientFilterRepository'])->flush();
+        };
+
+        static::created($purgeCacheClosure);
+        static::updated($purgeCacheClosure);
+        static::deleted($purgeCacheClosure);
+    }
+
     public function filter(): BelongsTo
     {
         return $this->belongsTo(ClientFilter::class, 'id', 'filter_id');
