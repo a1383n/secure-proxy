@@ -6,7 +6,6 @@ use App\Enums\DomianFilterType;
 use App\Models\ResolveLog;
 use App\Services\ClientFilterService;
 use App\Services\DomainFilterService;
-use App\Services\ProxyService;
 use App\Services\ResolverService;
 use App\Services\UpstreamService;
 use Illuminate\Http\Request;

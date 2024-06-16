@@ -12,8 +12,7 @@ class Cache implements ReflectionAttribute
      */
     public function __construct(
         public readonly \DateInterval|\DateTimeInterface|int|null $ttl = 60,
-    )
-    {
+    ) {
         //
     }
 
@@ -24,9 +23,9 @@ class Cache implements ReflectionAttribute
 
     public static function getKey(string $class, string $method, array $argument): string
     {
-        $key = $class . ':' . $method;
+        $key = $class.':'.$method;
         if (!empty($argument)) {
-            $key .= ':' . substr(sha1(serialize($argument)), 0, 8);
+            $key .= ':'.substr(sha1(serialize($argument)), 0, 8);
         }
 
         return $key;

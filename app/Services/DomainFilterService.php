@@ -28,7 +28,7 @@ readonly class DomainFilterService
     public function isDomainMatchFilterMode(DomianFilterType $filterMode, string $domain): bool
     {
         $result = $this->repository->getDomains(Str::lower($filterMode->value))
-            ->first(fn(DomainFilterItem $item) => $item->pass($domain));
+            ->first(fn (DomainFilterItem $item) => $item->pass($domain));
 
         return $result !== null;
     }

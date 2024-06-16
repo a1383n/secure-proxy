@@ -8,7 +8,8 @@ use App\Repositories\Traits\HasReflection;
 
 abstract class Repository extends BaseRepository
 {
-    use Bootable, HasReflection;
+    use Bootable;
+    use HasReflection;
 
     public function __construct()
     {

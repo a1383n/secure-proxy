@@ -78,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * @param array<class-string> $classes
+     *
      * @return void
      */
     protected function registerRepositories(array $classes): void
@@ -94,7 +95,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerRepositories([
             ClientFilterRepository::class,
-            DomainFilterRepository::class
+            DomainFilterRepository::class,
         ]);
 
         $this->registerMacros();

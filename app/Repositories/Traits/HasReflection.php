@@ -18,9 +18,9 @@ trait HasReflection
 
     public function __call(string $name, array $arguments)
     {
-        if (($attributes = $this->reflection->getMethod($name)->getAttributes())) {
+        if ($attributes = $this->reflection->getMethod($name)->getAttributes()) {
             foreach ($attributes as $attribute) {
-                if ($result = $attribute->newInstance()(static::class, $name, $arguments, fn() => $this->{$name}(...$arguments))) {
+                if ($result = $attribute->newInstance()(static::class, $name, $arguments, fn () => $this->{$name}(...$arguments))) {
                     return $result;
                 }
             }

@@ -14,8 +14,8 @@ trait Bootable
             ->values()
             ->each(function ($class) {
                 try {
-                    $this->{'boot' . Str::camel(class_basename($class))}();
-                } catch (\BadMethodCallException){
+                    $this->{'boot'.Str::camel(class_basename($class))}();
+                } catch (\BadMethodCallException) {
                     //
                 }
             });

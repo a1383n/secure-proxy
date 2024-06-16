@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ClientFilterSeeder::class,
-            DomainFilterSeeder::class
+            DomainFilterSeeder::class,
         ]);
     }
 }

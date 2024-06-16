@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\ClientFilterType;
 use App\Models\ClientFilter;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ClientFilterSeeder extends Seeder
@@ -19,15 +18,15 @@ class ClientFilterSeeder extends Seeder
 
         $filter->items()->createMany([
             [
-                'name' => 'IPv4',
-                'type' => ClientFilterType::ALLOW,
-                'ip_address' => '0.0.0.0/0'
+                'name'       => 'IPv4',
+                'type'       => ClientFilterType::ALLOW,
+                'ip_address' => '0.0.0.0/0',
             ],
             [
-                'name' => 'IPv6',
-                'type' => ClientFilterType::ALLOW,
-                'ip_address' => '::/0'
-            ]
+                'name'       => 'IPv6',
+                'type'       => ClientFilterType::ALLOW,
+                'ip_address' => '::/0',
+            ],
         ]);
     }
 }
