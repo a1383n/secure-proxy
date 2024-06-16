@@ -3,8 +3,7 @@
 SecureProxy is an easy-to-use DNS solution designed to help users access restricted websites securely and efficiently. With its whitelist capabilities and simple setup process, SecureProxy ensures secure and unrestricted browsing on any device. Ideal for entry-level users, this solution bypasses censorship and provides safe, open internet access.
 
 > [!CAUTION]
->
-> The responsibility for using this program lies with the user. In some countries, including Iran, using proxies to bypass internet censorship is illegal. Users must ensure their use of ScureProxy complies with all applicable laws.
+> ### The responsibility for using this program lies with the user. In some countries, including Iran, using proxies to bypass internet censorship is illegal. Users must ensure their use of this program complies with all applicable laws.
 
 ## Table of Contents
 
