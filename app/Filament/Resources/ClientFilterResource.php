@@ -2,18 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\DomianFilterType;
-use App\Filament\Resources\FilterResource\Pages;
-use App\Models\DomainFilter;
+use App\Filament\Resources\ClientFilterResource\Pages;
+use App\Filament\Resources\ClientFilterResource\RelationManagers\ItemsRelationManager;
+use App\Models\ClientFilter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class FilterResource extends Resource
+class ClientFilterResource extends Resource
 {
-    protected static ?string $model = DomainFilter::class;
+    protected static ?string $model = ClientFilter::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -22,10 +22,8 @@ class FilterResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\Select::make('type')
-                    ->options(DomianFilterType::class)
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\Toggle::make('enabled')
                     ->default(true)
                     ->required(),
@@ -37,8 +35,6 @@ class FilterResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('type')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('enabled')
                     ->boolean(),
@@ -67,16 +63,16 @@ class FilterResource extends Resource
     public static function getRelations(): array
     {
         return [
-            \App\Filament\Resources\FilterResource\RelationManagers\DomainFilterItemsRelationManager::class,
+            ItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListFilters::route('/'),
-            'create' => Pages\CreateFilter::route('/create'),
-            'edit'   => Pages\EditFilter::route('/{record}/edit'),
+            'index'  => Pages\ListClientFilters::route('/'),
+            'create' => Pages\CreateClientFilter::route('/create'),
+            'edit'   => Pages\EditClientFilter::route('/{record}/edit'),
         ];
     }
 }

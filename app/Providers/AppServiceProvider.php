@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\ClientFilterRepository;
+use App\Repositories\DomainFilterRepository;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +15,9 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
+    protected function registerMacros(): void
     {
-        Location::macro('fetchMany', function ($ipAddresses): array {
+        Location::macro('fetchMany', function (string|array|null $ipAddresses): array {
             if (empty($ipAddresses)) {
                 return [];
             }
@@ -31,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
             $privateIps->each(function ($ip) use (&$positions) {
                 $position = new Position();
                 $position->countryName = 'Private Network';
+                $position->countryCode = 'XX';
                 $positions->put($ip, $position->toArray());
             });
 
@@ -72,6 +72,33 @@ class AppServiceProvider extends ServiceProvider
                 })
                 ->toArray();
         });
+
+        Location::macro('fetch', fn (?string $ipAddress) => Location::fetchMany($ipAddress)[$ipAddress]);
+    }
+
+    /**
+     * @param array<class-string> $classes
+     *
+     * @return void
+     */
+    protected function registerRepositories(array $classes): void
+    {
+        foreach ($classes as $class) {
+            $class::register($this->app);
+        }
+    }
+
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        $this->registerRepositories([
+            ClientFilterRepository::class,
+            DomainFilterRepository::class,
+        ]);
+
+        $this->registerMacros();
     }
 
     /**
