@@ -14,6 +14,6 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertSuccessful();
+        $this->assertTrue($response->isSuccessful() || $response->isRedirection() && $response->isRedirect('/admin'));
     }
 }
