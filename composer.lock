@@ -2921,16 +2921,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.0.5",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "ae5c28ca1e40a7a66bfc9b2557e7e1d84d95363c"
+                "reference": "139459218d021453d69436ac5b888c1d9ae9451f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/ae5c28ca1e40a7a66bfc9b2557e7e1d84d95363c",
-                "reference": "ae5c28ca1e40a7a66bfc9b2557e7e1d84d95363c",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/139459218d021453d69436ac5b888c1d9ae9451f",
+                "reference": "139459218d021453d69436ac5b888c1d9ae9451f",
                 "shasum": ""
             },
             "require": {
@@ -2984,9 +2984,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v5.0.5"
+                "source": "https://github.com/laravel/telescope/tree/v5.1.0"
             },
-            "time": "2024-05-09T17:09:01+00:00"
+            "time": "2024-06-17T14:55:08+00:00"
         },
         {
             "name": "laravel/tinker",
