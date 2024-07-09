@@ -2636,16 +2636,16 @@
         },
         {
             "name": "laravel/horizon",
-            "version": "v5.24.5",
+            "version": "v5.24.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "3c359e3a9ebd3e3be012a15eedf2d64ef8b82540"
+                "reference": "e0fd80d9cc5f975455b3e46f5cc8e731a3eb6ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/3c359e3a9ebd3e3be012a15eedf2d64ef8b82540",
-                "reference": "3c359e3a9ebd3e3be012a15eedf2d64ef8b82540",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/e0fd80d9cc5f975455b3e46f5cc8e731a3eb6ea3",
+                "reference": "e0fd80d9cc5f975455b3e46f5cc8e731a3eb6ea3",
                 "shasum": ""
             },
             "require": {
@@ -2709,22 +2709,22 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/horizon/issues",
-                "source": "https://github.com/laravel/horizon/tree/v5.24.5"
+                "source": "https://github.com/laravel/horizon/tree/v5.24.6"
             },
-            "time": "2024-05-31T16:18:41+00:00"
+            "time": "2024-06-25T21:23:57+00:00"
         },
         {
             "name": "laravel/octane",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/octane.git",
-                "reference": "2fd184106fb9296e5e531de54f29405c797f7ebf"
+                "reference": "21b319dd699c20821554a8f806c2487c6cb2cf59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/octane/zipball/2fd184106fb9296e5e531de54f29405c797f7ebf",
-                "reference": "2fd184106fb9296e5e531de54f29405c797f7ebf",
+                "url": "https://api.github.com/repos/laravel/octane/zipball/21b319dd699c20821554a8f806c2487c6cb2cf59",
+                "reference": "21b319dd699c20821554a8f806c2487c6cb2cf59",
                 "shasum": ""
             },
             "require": {
@@ -2801,7 +2801,7 @@
                 "issues": "https://github.com/laravel/octane/issues",
                 "source": "https://github.com/laravel/octane"
             },
-            "time": "2024-06-24T08:06:44+00:00"
+            "time": "2024-07-01T20:50:27+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -8807,16 +8807,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.30.0",
+            "version": "v1.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "e08b594052385ab9891dd86047e52da8a953c827"
+                "reference": "8ba049b6c06e0330b6aa1fb7af2746fb4da445e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/e08b594052385ab9891dd86047e52da8a953c827",
-                "reference": "e08b594052385ab9891dd86047e52da8a953c827",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/8ba049b6c06e0330b6aa1fb7af2746fb4da445e4",
+                "reference": "8ba049b6c06e0330b6aa1fb7af2746fb4da445e4",
                 "shasum": ""
             },
             "require": {
@@ -8866,7 +8866,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2024-06-18T17:36:56+00:00"
+            "time": "2024-07-01T20:55:03+00:00"
         },
         {
             "name": "mockery/mockery",
