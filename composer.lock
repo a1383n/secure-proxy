@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46184a23e0df83a83f47c71db313d5b3",
+    "content-hash": "5df7893bcf91a53e9bbc468c0cc7dd57",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4450,33 +4450,38 @@
         },
         {
             "name": "pear/net_dns2",
-            "version": "v1.5.4",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikepultz/netdns2.git",
-                "reference": "c4a167ff1bc93aaae95601ebc86099376c994581"
+                "reference": "0da0129eb9be67059a282007fab83f68d830783e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikepultz/netdns2/zipball/c4a167ff1bc93aaae95601ebc86099376c994581",
-                "reference": "c4a167ff1bc93aaae95601ebc86099376c994581",
+                "url": "https://api.github.com/repos/mikepultz/netdns2/zipball/0da0129eb9be67059a282007fab83f68d830783e",
+                "reference": "0da0129eb9be67059a282007fab83f68d830783e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9"
+                "phpunit/phpunit": "^10"
+            },
+            "suggest": {
+                "ext-curl": "Used for DNS over HTTPS (DoH)",
+                "ext-hash": "Used for TSIG authentication.",
+                "ext-openssl": "Used for DNS over TLS (DoT), and some DNSSEC verification."
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Net_DNS2": ""
+                "psr-4": {
+                    "NetDNS2\\": "src/NetDNS2/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
@@ -4486,10 +4491,10 @@
                     "role": "lead"
                 }
             ],
-            "description": "Native PHP DNS Resolver and Updater Library",
+            "description": "PHP DNS Resolver and Updater Library",
             "homepage": "https://netdns2.com/",
             "keywords": [
-                "PEAR",
+                "DNSSEC",
                 "dns",
                 "network"
             ],
@@ -4497,7 +4502,13 @@
                 "issues": "https://github.com/mikepultz/netdns2/issues",
                 "source": "https://github.com/mikepultz/netdns2"
             },
-            "time": "2023-10-01T05:15:14+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/mikepultz",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-06-09T18:38:18+00:00"
         },
         {
             "name": "phpoption/phpoption",
