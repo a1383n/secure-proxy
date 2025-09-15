@@ -2247,16 +2247,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.45.3",
+            "version": "v11.46.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0"
+                "reference": "2c6d85f22d08123ad45aa3a6726b16f06e68eecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
-                "reference": "f88bacee8daae65774ca8aa0f0bd32293e4f82b0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2c6d85f22d08123ad45aa3a6726b16f06e68eecd",
+                "reference": "2c6d85f22d08123ad45aa3a6726b16f06e68eecd",
                 "shasum": ""
             },
             "require": {
@@ -2458,7 +2458,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-09-02T23:56:44+00:00"
+            "time": "2025-09-08T21:54:34+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -4383,16 +4383,16 @@
         },
         {
             "name": "outhebox/blade-flags",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MohmmedAshraf/blade-flags.git",
-                "reference": "84d37c6c44e5509412c894a90ecdad737b96488f"
+                "reference": "f467991314b93ed83c12dafe7ec40ab43b5a61c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MohmmedAshraf/blade-flags/zipball/84d37c6c44e5509412c894a90ecdad737b96488f",
-                "reference": "84d37c6c44e5509412c894a90ecdad737b96488f",
+                "url": "https://api.github.com/repos/MohmmedAshraf/blade-flags/zipball/f467991314b93ed83c12dafe7ec40ab43b5a61c1",
+                "reference": "f467991314b93ed83c12dafe7ec40ab43b5a61c1",
                 "shasum": ""
             },
             "require": {
@@ -4439,7 +4439,7 @@
             ],
             "support": {
                 "issues": "https://github.com/MohmmedAshraf/blade-flags/issues",
-                "source": "https://github.com/MohmmedAshraf/blade-flags/tree/1.5.3"
+                "source": "https://github.com/MohmmedAshraf/blade-flags/tree/1.5.4"
             },
             "funding": [
                 {
@@ -4447,7 +4447,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-24T15:04:52+00:00"
+            "time": "2025-08-30T07:16:05+00:00"
         },
         {
             "name": "pear/net_dns2",
