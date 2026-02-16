@@ -3737,16 +3737,16 @@
         },
         {
             "name": "maxmind/web-service-common",
-            "version": "v0.11.0",
+            "version": "v0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maxmind/web-service-common-php.git",
-                "reference": "5b9e3d3472213361eebdb3ab8879e91b8952091b"
+                "reference": "c309236b5a5555b96cf560089ec3cead12d845d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/5b9e3d3472213361eebdb3ab8879e91b8952091b",
-                "reference": "5b9e3d3472213361eebdb3ab8879e91b8952091b",
+                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/c309236b5a5555b96cf560089ec3cead12d845d2",
+                "reference": "c309236b5a5555b96cf560089ec3cead12d845d2",
                 "shasum": ""
             },
             "require": {
@@ -3758,7 +3758,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "3.*",
                 "phpstan/phpstan": "*",
-                "phpunit/phpunit": "^8.0 || ^9.0",
+                "phpunit/phpunit": "^10.0",
                 "squizlabs/php_codesniffer": "4.*"
             },
             "type": "library",
@@ -3782,9 +3782,9 @@
             "homepage": "https://github.com/maxmind/web-service-common-php",
             "support": {
                 "issues": "https://github.com/maxmind/web-service-common-php/issues",
-                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.11.0"
+                "source": "https://github.com/maxmind/web-service-common-php/tree/v0.11.1"
             },
-            "time": "2025-11-20T18:33:17+00:00"
+            "time": "2026-01-13T17:56:03+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5580,16 +5580,16 @@
         },
         {
             "name": "stevebauman/location",
-            "version": "v7.6.1",
+            "version": "v7.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stevebauman/location.git",
-                "reference": "1d04b1104a667ebef63a498a0ba7add62923c81c"
+                "reference": "2f7686b685b924f193d6a6b82074861b8cc5aa3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/location/zipball/1d04b1104a667ebef63a498a0ba7add62923c81c",
-                "reference": "1d04b1104a667ebef63a498a0ba7add62923c81c",
+                "url": "https://api.github.com/repos/stevebauman/location/zipball/2f7686b685b924f193d6a6b82074861b8cc5aa3a",
+                "reference": "2f7686b685b924f193d6a6b82074861b8cc5aa3a",
                 "shasum": ""
             },
             "require": {
@@ -5643,9 +5643,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stevebauman/location/issues",
-                "source": "https://github.com/stevebauman/location/tree/v7.6.1"
+                "source": "https://github.com/stevebauman/location/tree/v7.6.2"
             },
-            "time": "2026-01-02T14:37:18+00:00"
+            "time": "2026-02-11T16:06:17+00:00"
         },
         {
             "name": "symfony/clock",
