@@ -13,7 +13,7 @@
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
         "outhebox/blade-flags": "^1.5",
-        "pear/net_dns2": "^1.5",
+        "pear/net_dns2": "^2.0",
         "stevebauman/location": "^7.3"
     },
     "require-dev": {
